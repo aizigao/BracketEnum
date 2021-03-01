@@ -1,7 +1,7 @@
 {
-  "name": "bracketEnum",
+  "name": "BracketEnum",
   "author": "aizigao",
-  "version": "0.2.3",
+  "version": "0.0.1",
   "keywords": ["enum"],
   "scripts": {
     "start": "dumi dev",
@@ -18,7 +18,7 @@
   "files": [
     "dist"
   ],
-  "homepage": "https://github.com/aizigao/uni-select",
+  "homepage": "https://github.com/aizigao/BracketEnum",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "typings": "dist/index.d.ts",
@@ -33,7 +33,9 @@
       "prettier --parser=typescript --write"
     ]
   },
-  "dependencies": {},
+  "dependencies": {
+    "lodash": "^4.17.21"
+  },
   "devDependencies": {
     "@types/jest": "^26.0.4",
     "@umijs/preset-react": "1.x",
@@ -42,7 +44,6 @@
     "father-build": "^1.17.2",
     "gh-pages": "^3.0.0",
     "lint-staged": "^10.0.7",
-    "lodash": "^4.17.21",
     "prettier": "^1.19.1",
     "react": "^16.12.0",
     "yorkie": "^2.0.0"

@@ -2,128 +2,122 @@
 
 build you own select usually like React Native Platform.select
 
-<img alt="npm (scoped)" src="https://img.shields.io/npm/v/@aizigao/uni-select?style=for-the-badge" style='display:inline-block' >
-<img alt="npm bundle size (scoped)" style='display:inline-block' src="https://img.shields.io/bundlephobia/minzip/@aizigao/uni-select?style=for-the-badge">
+<img alt="npm (scoped)" src="https://img.shields.io/npm/v/BracketEnum?style=for-the-badge" style='display:inline-block' >
+<img alt="npm bundle size (scoped)" style='display:inline-block' src="https://img.shields.io/bundlephobia/minzip/BracketEnum?style=for-the-badge">
 
 ## WHAT AND HOW
 
-just see src/UniSelect/index.test.ts
+If you're using Typescript, you will realize that the enum type under typescript is not so useful, so I created this repository to handle the enum type.
 
-You can use it to create a Platform.Select util like ReactNative
+![Peek 2021-03-01 15-16.gif](https://i.loli.net/2021/03/01/9SjxY5QD7nqTZzp.gif)
 
-```ts
-import createSelector from '@aizigao/uni-select';
+If you wanta to see what you defined bofore, just move you mouse hovering it.
 
-// image below val is always Truely
-const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+![image.png](https://i.loli.net/2021/03/01/Lam54Zhub8PXRBH.png)
 
-const PlatformO = createSelector({
-  ios: true,
-  android: false,
-});
-const Platform = { ...PlatformO, OS: PlatformO.current };
+## How to use it
 
-Platform.select({
-  ios: "I'm IOS",
-}); // Return "I'm IOS"
-Platform.OS; // ios
+**Install**
+
+```
+yarn add BracketEnum
 ```
 
-**extends original React Native's `Platform` for more possible**
-
-> detect more android special manufacturer
-
-> detect iphoneX
+**define a BracketEnum**
 
 ```ts
-import createSelector from '@aizigao/uni-select';
-import { Platform as PlatformRN } from 'react-native';
+const STATUS = BracketEnum.of([
+  // [CODE, [VALUE, DESC, EXTR]]
+  ['AUDIT_WAIT', [1, 'pass', 'extra1']],
+  ['AUDIT_PASS', [2, 'reject', 'extra2']],
+]);
 
-// TIP: You need  set conditions by youself
-const androidXiaomi = false;
-const androidSamsung = true;
-const isIphoneX = false; // detect it can use [react-native-iphone-x-helper](https://www.npmjs.com/package/react-native-iphone-x-helper)
+// --- or
 
-const PlatformO = createSelector({
-  iosGeneral: PlatformRN.OS === 'ios' && !isIphoneX,
-  iosIphoneX: PlatformRN.OS === 'ios' && isIphoneX,
-  androidSamsung: PlatformRN.OS === 'android' && androidSamsung,
-  androidXiaomi: PlatformRN.OS === 'android' && androidXiaomi,
-  androidGeneral:
-    PlatformRN.OS === 'android' && !androidSamsung && !androidXiaomi,
-});
-
-// use OS instead of current property
-const Platform = { ...PlatformO, OS: PlatformO.current };
-
-const spMsgForPlatfrom = Platform.select({
-  androidSamsung: "I'm smasung devices",
-  androidXiaomi: "I'm Xiaomi devices",
-}); //"I'm smasung devices"
-
-const currentVerson = Platform.OS; // androidSamsung
-const currentVersonSame = Platform.current; // androidSamsung
+const STATUS_2 = new BracketEnum([
+  // [CODE, [VALUE, DESC, EXTR]]
+  ['AUDIT_WAIT', [1, 'pass', 'extra1']],
+  ['AUDIT_PASS', [2, 'reject', 'extra2']],
+]);
 ```
 
-**other test cases**
+> I recommand you use `BracketEnum.of` instead of `new` for I often forget lost `new` in my code.
+
+**Basic Use**
 
 ```ts
-import createSelector from '@aizigao/uni-select';
+STATUS.getValueByCode('AUDIT_PASS'); // 2
 
-test('normal', () => {
-  const selector = createSelector({
-    isIOS: true,
-    isAndroid: false,
-  });
+STATUS.getDescByCode('AUDIT_WAIT'); // 'pass'
 
-  const rst = selector.select({
-    isIOS: "I'm use safari browser now",
-    isAndroid: "I'm use android browser now",
-  });
+STATUS.getDescByValue(2); // 'pass'
 
-  expect(rst).toEqual("I'm use safari browser now");
-});
+STATUS.getAllValues(); // [1, 2]
 
-test("can't has multi match value", () => {
-  expect(() => {
-    createSelector({
-      isIOS: true,
-      isAndroid: true,
+// -- detect a value is match code
+const currentState = 2;
+STATUS.checkValueByCode('AUDIT_PASS', currentState); // true
+```
+
+**extend it by youself**
+
+Because I use `class` to create BracketEnum, so you can just extends it
+
+```ts
+// extend
+class myEnums extends Dtnums {
+  // ---
+}
+new myEnums([]);
+myEnums.of([]);
+```
+
+e.g.
+
+I use `antd` more often, so I add a function names `toFormOption` build in that could create the `Options` structure needed to generate `Select` in `antd`. If you need to define it, you can follow like below.
+
+```ts
+class myEnums extends Dtnums {
+  // build in funtion aready, name toFormOptions
+  toMyFormOptions(hasAll: boolean = false): any[] {
+    const allOption = {
+      key: null,
+      value: null,
+      label: '全部',
+      extra: null,
+    };
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const result = this.configList.map(([code, [value, desc, extra]]) => {
+      return {
+        key: value,
+        value,
+        label: desc,
+        extra,
+      };
     });
-  }).toThrow('[UniSelect]: conditions must be unique');
-});
 
-test('no match value', () => {
-  const selector = createSelector({
-    isIOS: true,
-    isAndroid: false,
-  });
-
-  expect(
-    selector.select({
-      isAndroid: 'yyy',
-      // isIOS: 'yyy',
-    }),
-  ).toBeNull();
-
-  expect(selector.current).toEqual('isIOS');
-});
-
-test('fallback if not match config', () => {
-  const selector = createSelector({
-    isIOS: false,
-    isAndroid: false,
-  });
-
-  expect(
-    selector.select({
-      default: "I'm fall back",
-    }),
-  ).toEqual("I'm fall back");
-
-  expect(selector.current).toBeNull();
-});
+    if (hasAll) {
+      return [allOption, ...result];
+    }
+    return result;
+  }
+}
+new myEnums([]);
+myEnums.of([]);
 ```
+
+**Build in function**
+
+- `of()`: create BracketEnum
+- `getValueByCode([code])`
+- `getDescByCode([code])`
+- `getExtraByCode([code])`
+- `getExtraByValue([code])`
+- `getDescByValue([value])`
+- `getAllValues()`
+
+* `toFormOptions([hasAll:Boolean])`: ganerate `antd` 's `options` structure
+* `toFormValueEnum` : ganerate `antd pro table`'s ValueEnum
 
 ## Install
 
@@ -162,3 +156,7 @@ $ npm run build
 ### 1.0.0
 
 - first version
+
+### 0.0.1
+
+- publish test
