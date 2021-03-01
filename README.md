@@ -7,7 +7,7 @@ If you're using Typescript, you will realize that the enum type under typescript
 
 ![Peek 2021-03-01 15-16.gif](https://i.loli.net/2021/03/01/9SjxY5QD7nqTZzp.gif)
 
-If you wanta see what you defined bofore, just move you mouse hovering it.
+If you wanta see what you defined before, just move you mouse and hovering it.
 
 ![image.png](https://i.loli.net/2021/03/01/Lam54Zhub8PXRBH.png)
 
@@ -109,37 +109,23 @@ myEnums.of([]);
 - `getValueByCode([code])`
 - `getDescByCode([code])`
 - `getExtraByCode([code])`
-- `getExtraByValue([code])`
+- `getExtraByValue([value])`
 - `getDescByValue([value])`
 - `getAllValues()`
 
-* `toFormOptions([hasAll:Boolean])`: ganerate `antd` 's `options` structure
-* `toFormValueEnum` : ganerate `antd pro table`'s ValueEnum
-
-## Install
-
-```bash
-npm i bracketEnum
-```
+- `toFormOptions([hasAll:Boolean])`: ganerate `antd` 's `options` structure
+- `toFormValueEnum` : ganerate `antd pro table`'s ValueEnum
 
 ## Development
 
-Install dependencies,
+If you wanta fork this repo and do some works, you could see beflow or just out and enjoy it.
+
+Install dependencies
+
+run unit test
 
 ```bash
-$ yarn
-```
-
-Start the dev server,
-
-```bash
-$ npm start
-```
-
-Build documentation,
-
-```bash
-$ npm run docs:build
+$ npm run test
 ```
 
 Build library via `father-build`,
