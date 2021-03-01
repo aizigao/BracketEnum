@@ -1,17 +1,13 @@
-# @aizigao/uni-select
-
-build you own select usually like React Native Platform.select
-
-<img alt="npm (scoped)" src="https://img.shields.io/npm/v/BracketEnum?style=for-the-badge" style='display:inline-block' >
-<img alt="npm bundle size (scoped)" style='display:inline-block' src="https://img.shields.io/bundlephobia/minzip/BracketEnum?style=for-the-badge">
-
-## WHAT AND HOW
+# bracket-enum
 
 If you're using Typescript, you will realize that the enum type under typescript is not so useful, so I created this repository to handle the enum type.
 
+<img alt="npm (scoped)" src="https://img.shields.io/npm/v/bracket-enum?style=for-the-badge" style='display:inline-block' >
+<img alt="npm bundle size (scoped)" style='display:inline-block' src="https://img.shields.io/bundlephobia/minzip/bracket-enum?style=for-the-badge">
+
 ![Peek 2021-03-01 15-16.gif](https://i.loli.net/2021/03/01/9SjxY5QD7nqTZzp.gif)
 
-If you wanta to see what you defined bofore, just move you mouse hovering it.
+If you wanta see what you defined bofore, just move you mouse hovering it.
 
 ![image.png](https://i.loli.net/2021/03/01/Lam54Zhub8PXRBH.png)
 
@@ -20,12 +16,13 @@ If you wanta to see what you defined bofore, just move you mouse hovering it.
 **Install**
 
 ```
-yarn add BracketEnum
+yarn add bracket-enum
 ```
 
-**define a BracketEnum**
+**Define a BracketEnum**
 
 ```ts
+import { BracketEnum } from 'bracket-enum';
 const STATUS = BracketEnum.of([
   // [CODE, [VALUE, DESC, EXTR]]
   ['AUDIT_WAIT', [1, 'pass', 'extra1']],
@@ -41,7 +38,7 @@ const STATUS_2 = new BracketEnum([
 ]);
 ```
 
-> I recommand you use `BracketEnum.of` instead of `new` for I often forget lost `new` in my code.
+> I recommand you use `BracketEnum.of` instead of `new` for I often lost `new` in my code.
 
 **Basic Use**
 
@@ -59,7 +56,7 @@ const currentState = 2;
 STATUS.checkValueByCode('AUDIT_PASS', currentState); // true
 ```
 
-**extend it by youself**
+**Extend it by youself**
 
 Because I use `class` to create BracketEnum, so you can just extends it
 

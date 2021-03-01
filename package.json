@@ -1,7 +1,7 @@
 {
-  "name": "BracketEnum",
+  "name": "bracket-enum",
   "author": "aizigao",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "keywords": ["enum"],
   "scripts": {
     "start": "dumi dev",
