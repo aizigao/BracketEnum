@@ -2,8 +2,12 @@
 
 If you're using Typescript, you will realize that the enum type under typescript is not so useful, so I created this repository to handle the enum type.
 
-<img alt="npm (scoped)" src="https://img.shields.io/npm/v/bracket-enum?style=for-the-badge" style='display:inline-block' >
-<img alt="npm bundle size (scoped)" style='display:inline-block' src="https://img.shields.io/bundlephobia/minzip/bracket-enum?style=for-the-badge">
+<a href='https://www.npmjs.com/package/bracket-enum' target='_blank'> 
+  <img alt="npm (scoped)" src="https://img.shields.io/npm/v/bracket-enum?style=for-the-badge" style='display:inline-block' >
+</a>
+<a href='https://www.npmjs.com/package/bracket-enum' target='_blank'> 
+  <img alt="npm bundle size (scoped)" style='display:inline-block' src="https://img.shields.io/bundlephobia/minzip/bracket-enum?style=for-the-badge">
+</a>
 
 ![Peek 2021-03-01 15-16.gif](https://i.loli.net/2021/03/01/9SjxY5QD7nqTZzp.gif)
 
@@ -112,6 +116,7 @@ myEnums.of([]);
 - `getExtraByValue([value])`
 - `getDescByValue([value])`
 - `getAllValues()`
+- `checkValueByCode([code], value)`
 
 - `toFormOptions([hasAll:Boolean])`: ganerate `antd` 's `options` structure
 - `toFormValueEnum` : ganerate `antd pro table`'s ValueEnum
@@ -121,6 +126,10 @@ myEnums.of([]);
 If you wanta fork this repo and do some works, you could see beflow or just out and enjoy it.
 
 Install dependencies
+
+```sh
+yarn
+```
 
 run unit test
 
@@ -135,6 +144,10 @@ $ npm run build
 ```
 
 ## CHANGELOG
+
+### 1.0.1
+
+- remove dependencies `lodash`
 
 ### 1.0.0
 

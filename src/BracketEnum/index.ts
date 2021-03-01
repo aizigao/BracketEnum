@@ -1,10 +1,9 @@
-import get from 'lodash/get';
-import isNil from 'lodash/isNil';
-
 type Code = string;
 type Value = string | number;
 type Desc = string;
 type Extra = any;
+
+const isNil = (v: any) => v == null;
 
 export type IEnumOption<IEmumValue, IEmumDesc> = {
   label?: IEmumDesc;
@@ -74,7 +73,7 @@ class DtEnum<
   constructor(config: C[]) {
     this.configList = config;
     this.values = [];
-    config.forEach((item) => {
+    config.forEach(item => {
       const [code, [value, desc, extra]] = item;
       this.byCodeMap[code] = { code, value, desc, extra };
       this.byValueMap[String(value)] = { code, value, desc, extra };
@@ -111,7 +110,9 @@ class DtEnum<
    * @param value
    */
   getDescByValue(value: C[1][0]): C[1][1] | undefined {
-    return get(this.byValueMap, [value, 'desc']);
+    if (String(value) in this.byValueMap) {
+      return this.byValueMap[String(value)]?.desc;
+    }
   }
 
   /**
@@ -119,7 +120,9 @@ class DtEnum<
    * @param value
    */
   getExtraByValue(value: C[1][0]): C[1][2] | undefined {
-    return get(this.byValueMap, [value, 'extra']);
+    if (String(value) in this.byValueMap) {
+      return this.byValueMap[String(value)]?.extra;
+    }
   }
 
   /**
